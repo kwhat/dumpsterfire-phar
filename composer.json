@@ -1,0 +1,30 @@
+{
+    "name": "kwhat/dumpsterfire-phar",
+    "type": "project",
+    "homepage": "https://github.com/kwhat/dumpsterfire-phar",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexander Barker",
+            "email": "alex@1stleg.com",
+            "homepage": "https://github.com/kwhat/",
+            "role": "Collaborator"
+        }
+    ],
+    "require": {
+        "php": ">=7.2.0"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "What4\\Phar\\": "src/"
+        }
+    },
+    "autoload-dev": {
+    },
+    "minimum-stability": "stable",
+    "scripts": {
+        "phar": "php -f create-phar.php"
+    }
+}
