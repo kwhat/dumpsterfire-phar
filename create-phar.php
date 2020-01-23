@@ -11,13 +11,17 @@ $it->append(new RecursiveIteratorIterator(new RecursiveDirectoryIterator("src/",
 $it->append(new RegexIterator(new RecursiveIteratorIterator(new RecursiveDirectoryIterator("vendor/", FilesystemIterator::SKIP_DOTS)), '/\.(?:php)$/i'));
 
 $phar = new Phar('/tmp/archive.phar');
+$phar->startBuffering();
 $phar->buildFromIterator($it, ".");
 $phar->setStub(file_get_contents("pharstub.php"));
-$phar->compressFiles(Phar::GZ);
+// FIXME Compression is broken for files of any meaningful size
+//$phar->compressFiles(Phar::GZ);
+$phar->stopBuffering();
 
 // Just to be extra sure phar sucks
 chmod('/tmp/archive.phar', 0777);
 
+// FIXME The phar archive is never updated after buildFromIterator, create a new one.
 $phar = new Phar($phar->getPath());
 foreach (new RecursiveIteratorIterator($phar) as $file) {
     /** @var PharFileInfo $file */
